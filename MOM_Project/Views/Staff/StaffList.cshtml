@@ -1,0 +1,70 @@
+﻿@model IEnumerable<MOM_Project.Models.StaffModel>
+
+<div class="container pb-3">
+    <h2 class="h2 fw-bold">Staff</h2>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary" asp-action="StaffAdd">
+            <i class="bi bi-plus"></i> Add Staff
+        </a>
+    </div>
+</div>
+
+@if (@TempData["SucessMessage"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        @TempData["SucessMessage"]
+    </div>
+}
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<div class="shadow rounded-4 overflow-hidden">
+    <div class="bg-primary text-white px-3 py-2 h5 mb-0">
+        Staff List
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table main-table mb-0">
+            <thead>
+                <tr>
+                    <th>Staff</th>
+                    <th>Department</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <p>@item.StaffName</p>
+                            <p class="fs-sm">@item.EmailAddress</p>
+                        </td>
+                        <td>@item.DepartmentName</td>
+                        <td class="text-center">
+                            <div class="action-icons">
+                                <a asp-action="StaffView" asp-controller="Staff" asp-route-StaffID="@item.StaffID" title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="StaffEditForm" asp-controller="Staff" asp-route-StaffID="@item.StaffID" title="Edit">
+                                    <i class="bi bi-pen"></i>
+                                </a>
+                                <a asp-action="StaffDeleteForm" asp-controller="Staff" asp-route-StaffID="@item.StaffID" title="Delete">
+                                    <i class="bi bi-trash text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h5>No Data Found</h5>
+    }
+</div>
