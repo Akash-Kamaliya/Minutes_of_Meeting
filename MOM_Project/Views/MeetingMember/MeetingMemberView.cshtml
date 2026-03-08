@@ -1,14 +1,52 @@
-﻿<h2 class="h2 fw-bold">View Meeting Member</h2>
+﻿@model MOM_Project.Models.MeetingMemberModel
+
+<div class="container pb-3">
+    <h2 class="h2 fw-bold">View Meeting Member</h2>
+</div>
 
 <div class="card shadow rounded-4 overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5">View Meeting Member</div>
-    </div>
-    <div class="card-body">
-        <p><b>Meeting Name:</b> Project Kickoff </p>
-        <p><b>Staff Name:</b> Akash </p>
-        <p><b>Status:</b> Present</p>
 
-        <a asp-action="MeetingMemberList" class="btn btn-primary">Back</a>
+    <div class="table-head px-3 py-2 bg-primary text-white">
+        <div class="h5">Meeting Member</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Meeting Name</div>
+            <div class="col-md-9">@Model.MeetingName</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Staff Name</div>
+            <div class="col-md-9">@Model.StaffName</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Present</div>
+            <div class="col-md-9">
+                @(Model.IsPresent == true ? "Yes" : "No")
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Remarks</div>
+            <div class="col-md-9">@Model.Remarks</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Created</div>
+            <div class="col-md-9">@Model.Created</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Modified</div>
+            <div class="col-md-9">@Model.Modified</div>
+        </div>
+
+        <a asp-action="MeetingMemberList" class="btn btn-primary">
+            Back
+        </a>
+
     </div>
 </div>

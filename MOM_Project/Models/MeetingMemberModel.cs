@@ -8,6 +8,13 @@ namespace MOM_Project.Models
 
         [Required(ErrorMessage = "Meeting Name is required")]
         [StringLength(100)]
+
+        public int MeetingID { get; set; }
+
+        public int StaffID { get; set; }
+
+        public string? MeetingTypeName { get; set; }
+
         public string MeetingName { get; set; }
 
         [Required(ErrorMessage = "Staff Name is required")]

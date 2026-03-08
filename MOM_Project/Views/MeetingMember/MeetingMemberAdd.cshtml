@@ -1,45 +1,77 @@
 ﻿@model MOM_Project.Models.MeetingMemberModel
 
-<h2 class="h2 fw-bold">Add Meeting Member</h2>
+<div class="container pb-3">
+    <h2 class="h2 fw-bold">Add Meeting Member</h2>
+</div>
 
 <div class="card shadow rounded-4 overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5 mb-0">Add Meeting Member</div>
+    <div class="table-head px-3 py-2 bg-primary text-white">
+        <div class="h5">Add Meeting Member</div>
     </div>
 
     <div class="card-body">
 
         <form asp-action="MeetingMemberAdd" method="post">
 
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Meeting Name</label>
-                    <input asp-for="MeetingName" class="form-control" />
-                    <span asp-validation-for="MeetingName" class="text-danger"></span>
-                </div>
+            <div class="mb-3">
+                <label class="form-label">Meeting</label>
+                <select asp-for="MeetingID" class="form-control">
 
-                <div class="col-md-6">
-                    <label class="form-label">Staff Name</label>
-                    <input asp-for="StaffName" class="form-control" />
-                    <span asp-validation-for="StaffName" class="text-danger"></span>
-                </div>
+                    <option value="">Select Meeting</option>
+
+                    @foreach (var meeting in ViewBag.MeetingList)
+                    {
+                        <option value="@meeting.MeetingID">
+                            @meeting.MeetingTypeName
+                        </option>
+                    }
+
+                </select>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Staff Status</label>
-                    <select asp-for="IsPresent" class="form-select">
-                        <option value="">-- Select Status --</option>
-                        <option value="true">Present</option>
-                        <option value="false">Absent</option>
-                    </select>
-                    <span asp-validation-for="IsPresent" class="text-danger"></span>
-                </div>
+            <div class="mb-3">
+                <label class="form-label">Staff</label>
+
+                <select asp-for="StaffID" class="form-control">
+
+                    <option value="">Select Staff</option>
+
+                    @foreach (var staff in ViewBag.StaffList)
+                    {
+                        <option value="@staff.StaffID">
+                            @staff.StaffName
+                        </option>
+                    }
+
+                </select>
+
             </div>
 
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a asp-action="MeetingMemberList" class="btn btn-secondary">Cancel</a>
+            <div class="mb-3">
+                <label asp-for="IsPresent" class="form-label"></label>
+                <select asp-for="IsPresent" class="form-control">
+                    <option value="">Select</option>
+                    <option value="true">Present</option>
+                    <option value="false">Absent</option>
+                </select>
+                <span asp-validation-for="IsPresent" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Remarks" class="form-label"></label>
+<textarea asp-for="Remarks" class="form-control"></textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Save
+                </button>
+
+                <a asp-action="MeetingMemberList" class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
+
         </form>
-
     </div>
 </div>

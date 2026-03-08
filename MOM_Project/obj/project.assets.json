@@ -926,11 +926,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "X:\\Akash\\DotNet\\AcadamicProject\\MOM_Project\\MOM_Project.csproj",
+      "projectUniqueName": "X:\\Akash\\Minutes_of_Meeting\\MOM_Project\\MOM_Project.csproj",
       "projectName": "MOM_Project",
-      "projectPath": "X:\\Akash\\DotNet\\AcadamicProject\\MOM_Project\\MOM_Project.csproj",
+      "projectPath": "X:\\Akash\\Minutes_of_Meeting\\MOM_Project\\MOM_Project.csproj",
       "packagesPath": "C:\\Users\\akash\\.nuget\\packages\\",
-      "outputPath": "X:\\Akash\\DotNet\\AcadamicProject\\MOM_Project\\obj\\",
+      "outputPath": "X:\\Akash\\Minutes_of_Meeting\\MOM_Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
