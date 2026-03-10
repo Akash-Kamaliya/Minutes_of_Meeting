@@ -1,52 +1,66 @@
 ﻿@model MOM_Project.Models.MeetingMemberModel
 
-<div class="container pb-3">
-    <h2 class="h2 fw-bold">View Meeting Member</h2>
-</div>
+<div class="container py-3">
 
-<div class="card shadow rounded-4 overflow-hidden">
+    <h2 class="fw-bold mb-4">View Meeting Member</h2>
+    <div class="card shadow-lg border-0 rounded-4">
 
-    <div class="table-head px-3 py-2 bg-primary text-white">
-        <div class="h5">Meeting Member</div>
-    </div>
-
-    <div class="card-body">
-
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Meeting Name</div>
-            <div class="col-md-9">@Model.MeetingName</div>
+        <div class="card-header bg-primary text-white fw-semibold fs-5">
+            Meeting Member Details
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Staff Name</div>
-            <div class="col-md-9">@Model.StaffName</div>
-        </div>
+        <div class="card-body">
+            <div class="row g-4">
 
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Present</div>
-            <div class="col-md-9">
-                @(Model.IsPresent == true ? "Yes" : "No")
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Meeting Name</label>
+                    <div class="form-control bg-light">
+                        @Model.MeetingTypeName
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Staff Name</label>
+                    <div class="form-control bg-light">
+                        @Model.StaffName
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Present</label>
+                    <div class="form-control bg-light">
+                        @(Model.IsPresent == true ? "Yes" : "No")
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Remarks</label>
+                    <div class="form-control bg-light">
+                        @Model.Remarks
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Created</label>
+                    <div class="form-control bg-light">
+                        @Model.Created.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Modified</label>
+                    <div class="form-control bg-light">
+                        @Model.Modified.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="MeetingMemberList" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
             </div>
         </div>
-
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Remarks</div>
-            <div class="col-md-9">@Model.Remarks</div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Created</div>
-            <div class="col-md-9">@Model.Created</div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Modified</div>
-            <div class="col-md-9">@Model.Modified</div>
-        </div>
-
-        <a asp-action="MeetingMemberList" class="btn btn-primary">
-            Back
-        </a>
-
     </div>
 </div>

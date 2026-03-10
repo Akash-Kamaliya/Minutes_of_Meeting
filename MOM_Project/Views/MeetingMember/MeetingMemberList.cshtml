@@ -2,10 +2,32 @@
 
 <div class="container pb-3">
     <h2 class="h2 fw-bold">Meeting Member</h2>
-    <div class="d-flex justify-content-end">
+
+    <div class="d-flex justify-content-between">
+
+        <form asp-action="MeetingMemberList" method="get" class="d-flex">
+
+            <input type="text"
+                   name="searchText"
+                   class="form-control me-2"
+                   placeholder="Search meeting or staff..."
+                   value="@Context.Request.Query["searchText"]" />
+
+            <button class="btn btn-primary">
+                <i class="bi bi-search"></i>
+            </button>
+
+            <a asp-action="MeetingMemberList"
+               class="btn btn-secondary ms-2">
+                Reset
+            </a>
+
+        </form>
+
         <a class="btn btn-primary" asp-action="MeetingMemberAdd">
             <i class="bi bi-plus"></i> Add Meeting Member
         </a>
+
     </div>
 </div>
 
@@ -19,34 +41,10 @@
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 
-<form method="get" asp-action="MeetingMemberList" asp-controller="MeetingMember" class="mb-3">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-4">
-            <label class="form-label">Search by Meeting or Staff</label>
-            <input type="text"
-                   name="searchText"
-                   class="form-control"
-                   placeholder="Enter meeting or staff name"
-                   value="@ViewBag.SearchText" />
-        </div>
-
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-info">
-                <i class="fas fa-search"></i> Search
-            </button>
-
-            <a asp-action="MeetingMemberList"
-               asp-controller="MeetingMember"
-               class="btn btn-secondary ms-2">
-                <i class="fas fa-undo"></i> Reset
-            </a>
-        </div>
-    </div>
-</form>
-
 <div class="shadow rounded-4 overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5 mb-0">Meeting Member List</div>
+
+    <div class="bg-primary text-white px-3 py-2 h5 mb-0">
+        Meeting Member List
     </div>
 
     @if (Model != null && Model.Any())
@@ -66,14 +64,19 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.MeetingName</td>
+
+                        <td>@item.MeetingTypeName</td>
+
                         <td>@item.StaffName</td>
+
                         <td>
-                            @(item.IsPresent == true ? "Yes" : "No")
+                            @(item.IsPresent == true ? "Yes" : item.IsPresent == false ? "No" : "N/A")
                         </td>
+
                         <td>@item.Remarks</td>
 
                         <td class="text-center">
+
                             <div class="action-icons">
 
                                 <a asp-action="MeetingMemberView"
@@ -93,7 +96,6 @@
                                    title="Delete">
                                     <i class="bi bi-trash text-danger"></i>
                                 </a>
-
                             </div>
                         </td>
                     </tr>
@@ -103,6 +105,9 @@
     }
     else
     {
-        <h5 class="p-3">No Data Found</h5>
+        <div class="p-3">
+            <h5>No Data Found</h5>
+        </div>
     }
+
 </div>

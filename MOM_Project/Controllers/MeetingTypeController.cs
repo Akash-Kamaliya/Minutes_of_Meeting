@@ -18,7 +18,7 @@ namespace MOM_Project.Controllers
 
         #region Get All MeetingTypes
         [HttpGet]
-        public IActionResult MeetingTypelist()
+        public IActionResult MeetingTypelist(string searchText)
         {
             List<MeetingTypeModel> meetingTypelist = new List<MeetingTypeModel>();
             string sqlConnString = _configuration.GetConnectionString("DefaultConnection");
@@ -27,6 +27,12 @@ namespace MOM_Project.Controllers
             {
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sqlCommand.CommandText = "PR_MOM_MeetingType_SelectAll";
+
+                if (string.IsNullOrWhiteSpace(searchText))
+                    sqlCommand.Parameters.AddWithValue("@SearchText", DBNull.Value);
+                else
+                    sqlCommand.Parameters.AddWithValue("@SearchText", searchText);
+
 
                 sqlConnection.Open();
 
@@ -44,6 +50,8 @@ namespace MOM_Project.Controllers
                     }
                 }
             }
+            ViewBag.SearchText = searchText;
+
             return View(meetingTypelist);
         }
         #endregion

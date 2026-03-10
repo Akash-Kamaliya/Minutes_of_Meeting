@@ -48,7 +48,7 @@ namespace MOM_Project.Controllers
                 MeetingMemberModel model = new MeetingMemberModel
                 {
                     MeetingMemberID = Convert.ToInt32(row["MeetingMemberID"]),
-                    MeetingName = row["MeetingName"].ToString(),
+                    MeetingTypeName = row["MeetingTypeName"].ToString(),
                     StaffName = row["StaffName"].ToString(),
                     IsPresent = Convert.ToBoolean(row["IsPresent"]),
                     Remarks = row["Remarks"].ToString(),
@@ -119,7 +119,6 @@ namespace MOM_Project.Controllers
         }
 
         [HttpPost]
-        [HttpPost]
         public IActionResult MeetingMemberAdd(MeetingMemberModel model)
         {
             if (!ModelState.IsValid)
@@ -136,7 +135,7 @@ namespace MOM_Project.Controllers
         #region Edit Meeting Member
         public IActionResult MeetingMemberEditForm(int MeetingMemberID)
         {
-            LoadDropdowns();   // important for dropdown
+            LoadDropdowns();
 
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
 
@@ -174,7 +173,7 @@ namespace MOM_Project.Controllers
         {
             if (!ModelState.IsValid)
             {
-                LoadDropdowns(); // reload dropdown
+                LoadDropdowns(); 
                 return View(model);
             }
 
@@ -206,6 +205,37 @@ namespace MOM_Project.Controllers
         #endregion
 
         #region Delete Meeting Member
+        public IActionResult MeetingMemberDeleteForm(int MeetingMemberID)
+        {
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "PR_MeetingMember_SelectByPK";
+
+            cmd.Parameters.AddWithValue("@MeetingMemberID", MeetingMemberID);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            MeetingMemberModel model = new MeetingMemberModel();
+
+            if (reader.Read())
+            {
+                model.MeetingMemberID = Convert.ToInt32(reader["MeetingMemberID"]);
+                model.MeetingTypeName = reader["MeetingTypeName"].ToString();
+                model.StaffName = reader["StaffName"].ToString();
+            }
+
+            connection.Close();
+
+            return View(model);
+        }
+
+        [HttpPost]
         public IActionResult MeetingMemberDelete(int MeetingMemberID)
         {
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -215,7 +245,6 @@ namespace MOM_Project.Controllers
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "PR_MOM_MeetingMember_DeleteByPK";
 
@@ -229,7 +258,7 @@ namespace MOM_Project.Controllers
 
             return RedirectToAction("MeetingMemberList");
         }
-        #endregion
+        #endregion          
 
 
         #region View Meeting Member
@@ -244,7 +273,7 @@ namespace MOM_Project.Controllers
             cmd.Connection = connection;
 
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PR_MeetingMember_SelectByID";
+            cmd.CommandText = "PR_MeetingMember_SelectByPK";
 
             cmd.Parameters.AddWithValue("@MeetingMemberID", MeetingMemberID);
 
@@ -255,7 +284,7 @@ namespace MOM_Project.Controllers
             if (reader.Read())
             {
                 model.MeetingMemberID = Convert.ToInt32(reader["MeetingMemberID"]);
-                model.MeetingName = reader["MeetingName"].ToString();
+                model.MeetingTypeName = reader["MeetingTypeName"].ToString();
                 model.StaffName = reader["StaffName"].ToString();
                 model.IsPresent = Convert.ToBoolean(reader["IsPresent"]);
                 model.Remarks = reader["Remarks"].ToString();

@@ -1,39 +1,46 @@
-﻿<div class="container pb-3">
-    <h2 class="h2 fw-bold">View Department</h2>
-</div>
+﻿<div class="container py-3">
 
-<div class="card shadow rounded-4 overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5">Department</div>
-    </div>
-    <div class="card-body">
+    <h2 class="fw-bold mb-4">View Department</h2>
 
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Department ID</div>
-            <div class="col-md-9">@Model.DepartmentID</div>
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-header bg-primary text-white fw-semibold fs-5">
+            Department Details
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Department Name</div>
-            <div class="col-md-9">@Model.DepartmentName</div>
+        <div class="card-body">
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Department ID</label>
+                    <div class="form-control bg-light">@Model.DepartmentID</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Department Name</label>
+                    <div class="form-control bg-light">@Model.DepartmentName</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Created</label>
+                    <div class="form-control bg-light">
+                        @Model.Created.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Modified</label>
+                    <div class="form-control bg-light">
+                        @Model.Modified.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="DepartmentList" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
         </div>
-
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Created</div>
-            <div class="col-md-9">@Model.Created</div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-3 fw-bold">Modified</div>
-            <div class="col-md-9">@Model.Modified</div>
-        </div>
-
-
-        <div class="d-flex justify-content-start">
-            <a asp-action="DepartmentList" class="btn btn-primary">
-                <i class="bi bi-arrow-left"></i> Back
-            </a>
-        </div>
-
     </div>
 </div>

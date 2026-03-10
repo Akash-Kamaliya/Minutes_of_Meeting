@@ -1,65 +1,119 @@
-﻿@{
-    ViewData["Title"] = "Meeting List";
-    var meetings = new[]
-    {
-        new {
-            MeetingTitle = "Planning Meeting",
-            MeetingTypeName = "Planning",
-            MeetingVenueName = "Auditorium 9",
-            DepartmentName = "CSE"
-        },
-        new {
-            MeetingTitle = "Review Meeting",
-            MeetingTypeName = "Review",
-            MeetingVenueName = "Auditorium 10",
-            DepartmentName = "IT"
-        }
-    };
-}
+﻿@model IEnumerable<MOM_Project.Models.MeetingsModel>
 
 <div class="container pb-3">
     <h2 class="h2 fw-bold">Meetings</h2>
-    <div class="d-flex justify-content-end">
+
+    <div class="d-flex justify-content-between">
+
+        <form asp-action="MeetingsList" method="get" class="d-flex">
+
+            <input type="text"
+                   name="searchText"
+                   class="form-control me-2"
+                   placeholder="Search meeting..."
+                   value="@Context.Request.Query["searchText"]" />
+
+            <button class="btn btn-primary">
+                <i class="bi bi-search"></i>
+            </button>
+
+            <a asp-action="MeetingsList" class="btn btn-secondary ms-2">
+                Reset
+            </a>
+
+        </form>
+
         <a class="btn btn-primary" asp-action="MeetingsAdd">
             <i class="bi bi-plus"></i> Add Meeting
         </a>
+
     </div>
 </div>
 
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-primary">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
 <div class="shadow rounded-4 overflow-hidden">
+
     <div class="bg-primary text-white px-3 py-2 h5 mb-0">
         Meeting List
     </div>
 
-    <table class="table mb-0">
-        <thead>
-            <tr>
-                <th>Meeting</th>
-                <th>Type</th>
-                <th>Venue</th>
-                <th>Department</th>
-                <th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var m in meetings)
-            {
+    @if (Model != null && Model.Any())
+    {
+        <table class="table main-table mb-0">
+
+            <thead>
                 <tr>
-                    <td>@m.MeetingTitle</td>
-                    <td>@m.MeetingTypeName</td>
-                    <td>@m.MeetingVenueName</td>
-                    <td>@m.DepartmentName</td>
-                    <td class="text-center">
-                        <div class="action-icons">
-                            <a asp-action="MeetingsView"><i class="bi bi-eye"></i></a>
-                            <a asp-action="MeetingsEditForm"><i class="bi bi-pen"></i></a>
-                            <a asp-action="MeetingsDeleteForm"> 
-                                <i class="bi bi-trash text-danger"></i>
-                            </a>
-                        </div>
-                    </td>
+                    <th>Meeting Date</th>
+                    <th>Meeting Type</th>
+                    <th>Department</th>
+                    <th>Venue</th>
+                    <th>Cancelled</th>
+                    <th class="text-center">Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.MeetingDate.ToString("dd-MM-yyyy HH:mm")</td>
+                        <td>@item.MeetingTypeName</td>
+                        <td>@item.DepartmentName</td>
+                        <td>@item.MeetingVenueName</td>
+
+                        <td>
+                            @(item.IsCancelled == true ? "Yes" : "No")
+                        </td>
+
+                        <td class="text-center">
+
+                            <div class="action-icons">
+
+                                <a asp-action="MeetingsView"
+                                   asp-route-MeetingID="@item.MeetingID"
+                                   title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a asp-action="MeetingsEditForm"
+                                   asp-route-MeetingID="@item.MeetingID"
+                                   title="Edit">
+                                    <i class="bi bi-pen"></i>
+                                </a>
+
+                                <a asp-action="MeetingsDeleteForm"
+                                   asp-route-MeetingID="@item.MeetingID"
+                                   title="Delete">
+                                    <i class="bi bi-trash text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="p-3">
+            <h5>No Data Found</h5>
+        </div>
+    }
 </div>

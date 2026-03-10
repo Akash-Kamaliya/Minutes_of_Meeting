@@ -1,17 +1,73 @@
-﻿    <h2 class="h2 fw-bold">View Meeting</h2>
+﻿@model MOM_Project.Models.MeetingsModel
 
-<div class="card shadow rounded-4 overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5">View Meeting</div>
-    </div>
-    <div class="card-body">
-        <p><b>Meeting Neme:</b> Develoapment</p>
-        <p><b>Department:</b> CSE</p>
-        <p><b>Type:</b> Review</p>
-        <p><b>Venue:</b> Conference Room</p>
-        <p><b>Status:</b> Scheduled</p>
-        <p><b>Date:</b> 15-12-2025</p>
+<div class="container py-3">
 
-        <a asp-action="MeetingsList" class="btn btn-primary">Back</a>
+    <h2 class="fw-bold mb-4">View Meeting</h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-header bg-primary text-white fw-semibold fs-5">
+            Meeting Details
+        </div>
+
+        <div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Meeting Date</label>
+                    <div class="form-control bg-light">
+                        @Model.MeetingDate.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Meeting Type</label>
+                    <div class="form-control bg-light">
+                        @Model.MeetingTypeName
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Department</label>
+                    <div class="form-control bg-light">
+                        @Model.DepartmentName
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Meeting Venue</label>
+                    <div class="form-control bg-light">
+                        @Model.MeetingVenueName
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="text-muted small mb-1">Meeting Description</label>
+                    <div class="form-control bg-light">
+                        @Model.MeetingDescription
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Created</label>
+                    <div class="form-control bg-light">
+                        @Model.Created.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Modified</label>
+                    <div class="form-control bg-light">
+                        @Model.Modified.ToString("dd-MM-yyyy hh:mm tt")
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="MeetingsList" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
     </div>
 </div>

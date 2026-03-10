@@ -1,15 +1,60 @@
-﻿<h2 class="h2 fw-bold">View Staff</h2>
+﻿@model MOM_Project.Models.StaffModel
 
-<div class="card shadow rounded-4 overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5">View Staff</div>
-    </div>
-    <div class="card-body">
-        <p><b>Name:</b> Raju Patel</p>
-        <p><b>Department:</b> IT</p>
-        <p><b>Mobile:</b> 9876543210</p>
-        <p><b>Email:</b> raju@email.com</p>
+<div class="container py-3">
 
-        <a asp-action="StaffList" class="btn btn-primary">Back</a>
+    <h2 class="fw-bold mb-4">View Staff</h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-header bg-primary text-white fw-semibold fs-5">
+            Staff Details
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Staff Name</label>
+                    <div class="form-control bg-light">
+                        @Model.StaffName
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Department</label>
+                    <div class="form-control bg-light">
+                        @Model.DepartmentName
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Mobile Number</label>
+                    <div class="form-control bg-light">
+                        @Model.MobileNo
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-muted small mb-1">Email Address</label>
+                    <div class="form-control bg-light">
+                        @Model.EmailAddress
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="text-muted small mb-1">Remarks</label>
+                    <div class="form-control bg-light">
+                        @Model.Remarks
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-4">
+                <a asp-action="StaffList" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
     </div>
 </div>

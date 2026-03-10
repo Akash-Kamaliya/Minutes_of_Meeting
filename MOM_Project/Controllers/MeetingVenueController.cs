@@ -19,7 +19,7 @@ namespace MOM_Project.Controllers
 
         #region Get All MeetingVenue
         [HttpGet]
-        public IActionResult MeetingVenueList()
+        public IActionResult MeetingVenueList(string searchText)
         {
             List<MeetingVenueModel> meetingVenueList = new List<MeetingVenueModel>();
             string sqlConnString = _configuration.GetConnectionString("DefaultConnection");
@@ -30,7 +30,12 @@ namespace MOM_Project.Controllers
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "PR_MOM_MeetingVenue_SelectAll";
 
-                sqlConnection.Open();
+                if (string.IsNullOrWhiteSpace(searchText))
+                    sqlCommand.Parameters.AddWithValue("@SearchText", DBNull.Value);
+                else
+                    sqlCommand.Parameters.AddWithValue("@SearchText", searchText);
+
+                sqlConnection.Open();   
                 using (var reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
@@ -46,6 +51,9 @@ namespace MOM_Project.Controllers
                     }
                 }
             }
+
+            ViewBag.SearchText = searchText;
+
             return View("MeetingVenueList", meetingVenueList);
         }
         #endregion

@@ -1,23 +1,32 @@
-﻿<div class="container pb-3">
-    <h2 class="h2 fw-bold text-danger">Delete Staff</h2>
-</div>
+﻿@model MOM_Project.Models.StaffModel
+
+<h2 class="h2 fw-bold text-danger">Delete Staff</h2>
 
 <div class="card shadow rounded-4 border-danger overflow-hidden">
-    <div class="table-head d-flex align-items-center px-3 py-2 bg-primary text-white">
-        <div class="h5">Delete Staff</div>
+
+    <div class="table-head px-3 py-2 bg-danger text-white">
+        <div class="h5">Confirm Delete</div>
     </div>
+
     <div class="card-body">
 
         <ul class="list-group mb-3">
-            <li class="list-group-item"><b>Staff Name:</b> Raju Patel</li>
-            <li class="list-group-item"><b>Department:</b> CSE </li>
-            <li class="list-group-item"><b>Email:</b> raju@email.com</li>
+            <li class="list-group-item"><b>Staff Name:</b> @Model.StaffName</li>
+            <li class="list-group-item"><b>Department:</b> @Model.DepartmentName</li>
+            <li class="list-group-item"><b>Email:</b> @Model.EmailAddress</li>
         </ul>
 
-        <div class="text-start">
-            <button class="btn btn-danger">Delete</button>
+        <form asp-action="StaffDelete" method="post">
+
+            <input type="hidden" asp-for="StaffID" name="StaffID" value="@Model.StaffID"/>
+
+            <button class="btn btn-danger">
+                <i class="bi bi-trash"></i> Delete
+            </button>
+
             <a asp-action="StaffList" class="btn btn-secondary">Cancel</a>
-        </div>
+
+        </form>
 
     </div>
 </div>
